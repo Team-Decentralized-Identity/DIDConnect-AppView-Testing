@@ -1,130 +1,103 @@
-<script setup lang="ts">
-import twtext from "twitter-text";
-import { PropType, reactive, toRaw, watch } from "vue";
-
-import ButtonAsync from "@/components/common/ButtonAsync.vue";
-import { debounce, smartMerge } from "@/lib/algorithm";
-import { FeedViewPost } from "@/lib/bsky";
-import { usePostMutation } from "@/lib/query";
-
-const emits = defineEmits<{
-  (ev: "success"): void;
-  (ev: "error"): void;
-}>();
-const props = defineProps({
-  replyTo: {
-    type: Object as PropType<FeedViewPost>,
-    default: undefined,
-  },
-});
-
-const { mutate: postText, isLoading: processingPost } = usePostMutation();
-const DEBOUNCE_INTERVAL = 500;
-const MAX_PARSABLE_URL = 4;
-
-interface State {
-  text: string;
-  urls: {
-    id: number;
-    url: string;
-    indices: [number, number];
-    includes: boolean;
-  }[];
-}
-
-let nextId = 1;
-const state = reactive<State>({
-  text: "",
-  urls: [],
-});
-
-const updateUrls = () => {
-  const before = toRaw(state.urls);
-  const after = twtext
-    .extractUrlsWithIndices(state.text)
-    .map((e) => ({ ...e, includes: true, id: nextId++ }))
-    .slice(0, MAX_PARSABLE_URL);
-
-  state.urls = smartMerge(
-    before,
-    after,
-    (a, b) => a.url === b.url,
-    (a, b) => ({ ...a, indices: b.indices })
-  );
-};
-const debouncedUpdateUrls = debounce(updateUrls, DEBOUNCE_INTERVAL);
-
-watch(() => state.text, debouncedUpdateUrls);
-
-const submit = async () => {
-  const text = state.text;
-  if (!text) {
-    return;
-  }
-
-  updateUrls();
-  const urls = state.urls.filter((e) => e.includes);
-
-  state.text = "";
-  state.urls = [];
-
-  try {
-    await postText({ text, urls, replyTo: props.replyTo });
-    emits("success");
-  } catch {
-    emits("error");
-  }
-};
-const onkeydown = (ev: KeyboardEvent) => {
-  if ((ev.ctrlKey || ev.metaKey) && ev.key === "Enter") {
-    submit();
-  }
-};
-</script>
-
 <template>
-  <div>
-    <div class="input-group my-2">
-      <textarea
-        v-model="state.text"
-        type="text"
-        class="form-input"
-        placeholder="What's up?"
+  <div class="container">
+    <!-- Fixed Input Group for Posting New Content, now at the top -->
+    <div class="input-area">
+      <!-- Text input -->
+      <textarea 
+        v-model="state.text" 
+        class="form-input" 
+        placeholder="What's happening?" 
         @keydown="onkeydown"
       />
-    </div>
-
-    <div class="d-flex">
-      <ButtonAsync
-        class="btn btn-primary input-group-btn column col-auto"
-        :on-click="submit"
+      <!-- Submit button -->
+      <ButtonAsync 
+        class="btn btn-primary" 
+        :on-click="submit" 
         :force-loading="processingPost"
       >
-        Submit
+        Post
       </ButtonAsync>
-      <div class="px-2">
-        <span
-          v-for="({ url, id }, idx) in state.urls.filter((e) => e.includes)"
-          :key="id"
-          class="chip"
-        >
-          <i class="bi bi-link-45deg"></i>
-          <a
-            :href="url"
-            class="text-ellipsis d-inline-block"
-            target="_blank"
-            style="max-width: 200px"
-            >{{ url }}</a
-          >
-          <a
-            href="#"
-            class="btn btn-clear"
-            aria-label="Close"
-            role="button"
-            @click="state.urls[idx].includes = false"
-          ></a>
-        </span>
+    </div>
+
+    <!-- Scrollable Posts Feed -->
+    <div class="posts-feed">
+      <!-- Posts are rendered here. This part scrolls independently. -->
+      <div class="post" v-for="post in posts" :key="post.id">
+        <!-- Render post content here -->
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, reactive } from 'vue';
+import { useRoute, RouterLink } from "vue-router";
+import ButtonAsync from "@/components/common/ButtonAsync.vue";
+
+const route = useRoute();
+const isDarkMode = ref(false);
+
+const toggleMode = () => {
+  isDarkMode.value = !isDarkMode.value;
+  document.documentElement.className = isDarkMode.value ? 'dark-mode' : '';
+};
+
+// Assuming 'posts' are coming from a parent component or a composable function
+const posts = ref(null);
+
+const state = reactive({
+  text: '',
+  // ... other reactive states if needed
+});
+
+const submit = () => {
+  // Submit post logic
+};
+
+const onkeydown = (event) => {
+  // Handle keydown event
+};
+
+// Replace with your logout logic
+const logout = () => {
+  console.log('Logging out...');
+};
+</script>
+
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.posts-feed {
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.input-area {
+  background: #fff; /* or your preferred color */
+  padding: 0.5rem;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-input {
+  flex-grow: 1;
+  margin-right: 1rem;
+  height: 40px; /* Reduced height to make the input area smaller */
+}
+
+.btn-primary {
+  /* Style as needed */
+}
+
+.post {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  /* Additional styles as needed */
+}
+</style>
