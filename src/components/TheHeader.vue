@@ -1,22 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRoute, RouterLink } from "vue-router";
+import { useRoute } from "vue-router";
+
+import { deleteSession } from "@/lib/bsky";
 
 const route = useRoute();
-const isDarkMode = ref(false);
 
-// Function to toggle dark mode
-const toggleMode = () => {
-  isDarkMode.value = !isDarkMode.value;
-  // Toggle classes on the body to change themes
-  if (isDarkMode.value) {
-    document.body.classList.add('dark-mode');
-  } else {
-    document.body.classList.remove('dark-mode');
-  }
+const logout = () => {
+  deleteSession();
+  location.reload();
 };
 
-// Tabs array with routes and labels
 const tabs = [
   {
     routeName: "index",
@@ -39,39 +32,31 @@ const tabs = [
     label: "Settings",
   },
 ];
-
-// Function to simulate logout
-const logout = () => {
-  // Replace with your logout logic
-};
 </script>
 
 <template>
   <div>
+    <div v-if="route.name !== 'main'" class="columns col-oneline p-2">
+      <div class="top-bar">
+          <img src="/src/assets/Filled_DIDConnect_Logo.png" alt="DIDConnect Logo" style="height: 65px;">
+        <span class="login-brand">DIDConnect</span>
+      </div>
+      <button v-if="route.name !== 'login'" class="btn btn-link col-ml-auto" @click="logout">
+        Logout
+      </button>
+
     <!-- Navigation Bar -->
-    <aside class="navigation">
-      <ul class="nav-list">
-        <li v-for="tab in tabs" :key="tab.routeName">
-          <RouterLink :to="{ name: tab.routeName }">
-            {{ tab.label }}
-          </RouterLink>
-        </li>
-      </ul>
-    </aside>
-
-    <!-- Main Content Area -->
-    <main class="content">
-      <!-- Your content here -->
-    </main>
-
-    <!-- Dark Mode Toggle Button -->
-    <div class="dark-mode-toggle" @click="toggleMode">
-      <div class="toggle-button" :class="{ 'dark': isDarkMode }"></div>
-    </div>
-
-    <!-- Logout Button -->
-    <button @click="logout" class="logout-button">Logout</button>
+  <aside class="navigation">
+    <ul class="nav-list">
+      <li v-for="tab in tabs" :key="tab.routeName" v-if="route.name !== 'login'">
+        <RouterLink :to="{ name: tab.routeName }">
+        {{ tab.label }}
+        </RouterLink>
+      </li>
+    </ul>
+  </aside>
   </div>
+</div>
 </template>
 
 <style scoped>
@@ -83,8 +68,8 @@ body {
 /* Navigation Bar */
 .navigation {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 8vh; /* Adjust this value to move the navigation down */
+  left: 0.9%; /* Increase this value to move it to the right */
   width: var(--nav-width);
   height: 100vh;
   padding: 1rem;
@@ -102,66 +87,6 @@ body {
   padding: 0.5em 0;
   color: inherit;
   text-decoration: none;
-}
-
-/* Main Content */
-.content {
-  margin-left: var(--nav-width); /* Make space for the sidebar */
-  padding: 1rem;
-}
-
-/* Dark Mode Toggle Styles */
-.dark-mode-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  width: 3rem;
-  height: 1.5rem;
-  background-color: #fff;
-  border-radius: 1.5rem;
-  display: flex;
-  align-items: center;
-  padding: 0.25rem;
-  cursor: pointer;
-}
-
-.toggle-button {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  background-color: #000;
-  transition: all 0.3s ease;
-}
-
-.toggle-button.dark {
-  transform: translateX(1.5rem);
-  background-color: #fff;
-}
-
-/* Dark and Light Mode Color Definitions */
-:root {
-  --nav-width: 200px;
-}
-
-body.dark-mode {
-  --background-color: #33333;
-  --text-color: #b8d8be;
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-.dark-mode .navigation {
-  background-color: var(--background-color);
-}
-
-body:not(.dark-mode) {
-  --background-color: #fbf5eb;
-  --text-color: #33333;
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-:not(.dark-mode) .navigation {
-  background-color: var(--background-color);
+  font-size: 1.5rem; /* Increase the font size here */
 }
 </style>
