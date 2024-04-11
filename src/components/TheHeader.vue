@@ -69,7 +69,7 @@ body {
 .navigation {
   position: fixed;
   top: 8vh; /* Adjust this value to move the navigation down */
-  left: 0.9%; /* Increase this value to move it to the right */
+  left: 1.2%; /* Increase this value to move it to the right */
   width: var(--nav-width);
   height: 100vh;
   padding: 1rem;

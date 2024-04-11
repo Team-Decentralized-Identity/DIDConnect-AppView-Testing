@@ -124,11 +124,11 @@ const { printObject, copyObject } = useObjectInspector(user);
   width: 100%;
   top: 0;
   left: 0;
-  background: linear-gradient(
+  /* background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0) 0%,
     rgba(255, 255, 255, 1) 85%,
     rgba(255, 255, 255, 1) 100%
-  );
+  ); */
 }
 </style>
