@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 
-import { deleteSession } from "@/lib/bsky";
 
 const route = useRoute();
 
-const logout = () => {
-  deleteSession();
-  location.reload();
-};
+
 
 const tabs = [
   {
@@ -50,11 +46,7 @@ const tabs = [
               {{ tab.label }}
             </RouterLink>
           </li>
-          <li v-if="route.name !== 'login'">
-            <button class="btn btn-link logout-button" @click="logout">
-              Logout
-            </button>
-          </li>
+         
         </ul>
       </aside>
     </div>
@@ -70,8 +62,8 @@ body {
 /* Navigation Bar */
 .navigation {
   position: fixed;
-  top: 8vh; /* Adjust this value to move the navigation down */
-  left: 1.2%; /* Increase this value to move it to the right */
+  top: 8vh;
+  left: 1.2%; 
   width: var(--nav-width);
   height: 100vh;
   padding: 1rem;
@@ -87,7 +79,7 @@ body {
 
 .nav-list li a {
  width: 100%; 
-  text-align: left; /* Aligns text to the left */
+  text-align: left; 
   padding: 0; 
   color: inherit; 
   background: none; 
@@ -98,8 +90,8 @@ body {
 }
 
 .logout-button {
-  width: 100%; 
-  text-align: left; /* Aligns text to the left */
+  width: 100%;
+  text-align: left;
   padding: 0; 
   color: inherit; 
   background: none; 
@@ -107,7 +99,7 @@ body {
   font-size: 1.5rem; 
   cursor: pointer; 
   left: 1.2%;
-  text-decoration: none;
+  text-decoration: none
 }
 
 

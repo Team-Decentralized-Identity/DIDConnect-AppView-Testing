@@ -49,6 +49,9 @@ const onClickItem = (key: string) => {
 </template>
 
 <style scoped>
+body {
+  background-color: blue;
+  }
 .shown {
   display: block !important;
 }
