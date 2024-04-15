@@ -1,5 +1,4 @@
 # Skylight
 
-Minimal bsky web client implementation.
-
+DIDConnect a bluesky client
 https://penpenpng.github.io/skylight/
