@@ -76,7 +76,7 @@
   <img src="src/assets/Filled_DIDConnect_Logo.png" alt="DIDConnect Logo" class="logo">
   <span class="logo-name">DIDConnect</span> <!-- Centered logo name -->
   <div class="button-group">
-    <a href="/Sign" @click.prevent="$router.push('/SignUp')" id="signUp" class="button">Sign Up</a>
+    <a href="/signup" @click.prevent="$router.push('/signup')" id="signup" class="button">Sign Up</a>
     <a href="/login" @click.prevent="$router.push('/login')" id="signIn" class="button">Sign In</a>
   </div>
 </div>

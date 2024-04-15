@@ -8,6 +8,7 @@ import PageNoti from "@/pages/PageNoti.vue";
 import PageProfile from "@/pages/PageProfile.vue";
 import PageSearchUser from "@/pages/PageSearchUser.vue";
 import PageSettings from "@/pages/PageSettings.vue";
+import PageSign from "@/pages/PageSign.vue";
 
 import { resolveDidToHandleForNavigationGuard } from "./lib/query";
 
@@ -18,6 +19,12 @@ export const router = createRouter({
       name: "main",
       path: "/main",
       component: PageMain,
+    },
+    {
+      name: "sign",
+      path: "/sign",
+      component: PageSign,
+
     },
     {
       name: "login",
