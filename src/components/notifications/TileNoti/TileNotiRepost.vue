@@ -48,7 +48,7 @@ const { data: post } = await usePost({ uri: props.noti.record.subject.uri });
 <style scoped>
 .tile-noti {
   padding: 0.8rem 0.4rem 0.6rem;
-  border-bottom: 1px solid #e3e3e3;
+  border-bottom: 1px solid blue;
 }
 
 .avatar-reaction {

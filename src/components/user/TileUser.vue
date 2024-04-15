@@ -40,7 +40,7 @@ defineProps({
 
 <style scoped>
 .tile-user {
-  border-bottom: 1px solid #e3e3e3;
+  border-bottom: 1px solid #333333;
   align-items: center;
 }
 </style>

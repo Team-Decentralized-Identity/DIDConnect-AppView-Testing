@@ -74,9 +74,7 @@ body,
   white-space: pre-line;
 }
 
-.hoverable:hover {
-  background: #f1f1fc;
-}
+
 
 .wrap-anywhere {
   overflow-wrap: anywhere;

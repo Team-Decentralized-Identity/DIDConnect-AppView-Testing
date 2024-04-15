@@ -24,7 +24,7 @@ onErrorCaptured(() => {
     <p class="empty-title h5">User Not Found</p>
   </div>
 
-  <div v-else style="margin-top: 50px">
+  <div v-else style="margin-top: 0px">
     <Loadable>
       <ActorProfile :actor="actor" />
     </Loadable>
