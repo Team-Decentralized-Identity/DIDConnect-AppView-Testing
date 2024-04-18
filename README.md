@@ -1,3 +1,3 @@
 # DIDConnect
 
-It is a Bluesky client
+A decentralized web client
