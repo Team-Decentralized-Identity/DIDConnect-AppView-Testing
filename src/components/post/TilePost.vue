@@ -120,7 +120,7 @@ const goToPost = () => {
 <style scoped>
 .tile-post {
   padding: 0.8rem 0.4rem 0.6rem;
-  border-bottom: 1px solid #e3e3e3;
+  border-bottom: 1px solid #fbf5eb;
 }
 
 .chip .avatar.avatar-right {
@@ -132,9 +132,14 @@ const goToPost = () => {
 @media screen and (max-width: 600px) {
   .width-repost-chip {
     max-width: 200px;
+  
   }
   .width-user-name {
     max-width: 150px;
+    font-style: none;
+    text-decoration: none;
+
   }
 }
+
 </style>

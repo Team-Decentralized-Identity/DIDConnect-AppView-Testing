@@ -92,7 +92,9 @@ const { printObject, copyObject } = useObjectInspector(user);
 <style scoped>
 .card-profile {
   position: relative;
-  padding-top: 120px;
+  padding-top: 140px;
+  padding-bottom: 0px;
+  background-color: #333333;
 }
 
 .card-hero {
@@ -124,11 +126,7 @@ const { printObject, copyObject } = useObjectInspector(user);
   width: 100%;
   top: 0;
   left: 0;
-  /* background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 1) 85%,
-    rgba(255, 255, 255, 1) 100%
-  ); */
+  /* background:  */
+
 }
 </style>

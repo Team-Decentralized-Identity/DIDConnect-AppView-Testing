@@ -19,7 +19,7 @@
             padding: 0;
             font-family: "Helvetica Neue", Arial, sans-serif;
             background-color: #333333;
-            color: #b8d8be;
+            color: #fbf5eb;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -105,10 +105,14 @@
         .submit-btn:hover {
             background-color: #677bc4;
         }
+        .menu {
+            background-color: #333333;
+        }
+
     </style>
  
 </head>
-    <body>
+    <body :class="{ 'dark-mode': darkMode, 'light-mode': !darkMode }">
         <div id="app"></div> 
         <div id="lightbox"></div>
         <script type="module" src="/src/main.ts"></script> 

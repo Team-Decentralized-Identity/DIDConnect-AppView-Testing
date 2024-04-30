@@ -63,7 +63,7 @@ const logout = () => {
 .btn-link.logout-button {
   padding: 8px 16px; 
   font-size: 16px; 
-  background-image: linear-gradient(145deg, #6e48aa, #9d50bb); 
+  background-image: linear-gradient(145deg, #b8d8be, #fbf5eb); 
   color: white;
   border: none; 
   border-radius: 5px; 
@@ -74,13 +74,13 @@ const logout = () => {
 }
 
 .btn-link.logout-button:hover, .btn-link.logout-button:focus {
-  background-image: linear-gradient(to right, #9d50bb, #6e48aa); 
+  background-image: linear-gradient(to right, #b8d8be, #fbf5eb); 
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
 }
 .btn-link.change-handle {
    padding: 8px 16px; 
   font-size: 16px; 
-  background-image: linear-gradient(145deg, #6e48aa, #9d50bb); 
+  background-image: linear-gradient(145deg, #b8d8be, #fbf5eb); 
   color: white;
   border: none; 
   border-radius: 5px; 
@@ -90,9 +90,21 @@ const logout = () => {
   margin-top: .9em;
   }
   .btn-link.change-handle:hover .btn-link.change-handle:focus {
-      background-image: linear-gradient(to right, #9d50bb, #6e48aa); 
+      background-image: linear-gradient(to right, #b8d8be, #fbf5eb); 
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
+    html, body {
+  height: 100%; /* Make sure the html and body tags span the entire height of the viewport */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column; /* Align children elements in a column */
+}
+
+
+.form-group {
+  margin-top: 0; /* Remove any top margin from your form group if there's any */
+}
 
 </style>
 
